@@ -6,6 +6,14 @@ import java.util.List;
 public class Grafo<T> {
   private List<Vertice<T>> vertices;
 
+  public Grafo() {
+    vertices = new ArrayList<Vertice<T>>();
+  }
+
+  public List<Vertice<T>> getVertices() {
+    return vertices;
+  }
+
   public Vertice<T> adicionarVertice(T valor) {
     Vertice<T> novo = new Vertice<T>(valor);
     this.vertices.add(novo);
@@ -22,8 +30,9 @@ public class Grafo<T> {
     return null;
   }
 
+
   public void adicionarAresta(T origem, T destino, float peso) {
-    Vertice<T> verticeOrigem, verticeDestino;
+    Vertice verticeOrigem, verticeDestino;
     verticeOrigem = obterVertice(origem);
 
     //Se não existir origem, adiciona-la ao grafo
@@ -41,6 +50,7 @@ public class Grafo<T> {
     verticeOrigem.adicinarDestino(new Aresta(verticeDestino, peso));
   }
 
+
   public void buscaEmLargura() {
     ArrayList<Vertice> marcados = new ArrayList<Vertice>();
     ArrayList<Vertice> fila = new ArrayList<Vertice>();
@@ -51,12 +61,12 @@ public class Grafo<T> {
     fila.add(atual);
 
     //Enquanto houver vertice na fila a ser processados na busca
-    while(fila.size()>0) {
+    while(fila.size() > 0) {
       //transforma o primeiro da fila no atual, imprima, remove-o e o adicione nos marcados (ja visitados)
-      atual=fila.get(0);
+      atual = fila.get(0);
       fila.remove(0);
       marcados.add(atual);
-      System.out.println(atual.getValor());
+      System.out.println(atual.getValor().toString());
       //Pega a lista de nós adjacentes
       ArrayList<Aresta> destinos = atual.getDestinos();
       Vertice proximo;
@@ -64,7 +74,7 @@ public class Grafo<T> {
       //Para cada nó não marcado (não visitado) próximos ao nó atual do laço, adicione-o na fila
       for (int i = 0; i < destinos.size(); i++) {
         proximo=destinos.get(i).getDestino();
-        if(!marcados.contains(proximo)){
+        if(!marcados.contains(proximo) && !fila.contains(proximo)){
           fila.add(proximo);
         }
       }

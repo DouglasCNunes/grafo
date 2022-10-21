@@ -16,6 +16,4 @@ public class Aresta {
   public float getPeso() {
     return peso;
   }  
-
-  
 }

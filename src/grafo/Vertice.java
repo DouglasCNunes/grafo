@@ -6,8 +6,11 @@ public class Vertice<T> {
   private T valor;
   private ArrayList<Aresta> destinos;
 
+  
+
   public Vertice(T valor) {
     this.valor = valor;
+    destinos = new ArrayList<Aresta>();
   }
 
   public T getValor() {
@@ -18,7 +21,7 @@ public class Vertice<T> {
     this.destinos.add(destino);
   }
 
-public ArrayList<Aresta> getDestinos() {
-    return destinos;
-}
+  public ArrayList<Aresta> getDestinos() {
+    return this.destinos;
+  }
 }
