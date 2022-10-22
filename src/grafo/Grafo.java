@@ -30,7 +30,6 @@ public class Grafo<T> {
     return null;
   }
 
-
   public void adicionarAresta(T origem, T destino, float peso) {
     Vertice verticeOrigem, verticeDestino;
     verticeOrigem = obterVertice(origem);
@@ -50,13 +49,22 @@ public class Grafo<T> {
     verticeOrigem.adicinarDestino(new Aresta(verticeDestino, peso));
   }
 
+  public void obterVizinhos(int identificador) {
+    ArrayList<Aresta> arestas = this.vertices.get(identificador -1).getDestinos();
+    
+    Aresta aresta;
+    for (int i = 0; i < arestas.size(); i++) {
+      aresta = arestas.get(i);
+      System.out.println(aresta.getDestino().getValor().toString() + "Peso:" + aresta.getPeso());
+    }
+  }
 
-  public void buscaEmLargura() {
+  public void buscaEmLargura(int identificador) {
     ArrayList<Vertice> marcados = new ArrayList<Vertice>();
     ArrayList<Vertice> fila = new ArrayList<Vertice>();
 
     //Arbitrariamente é pego um vertice para iniciar a busca
-    Vertice atual = this.vertices.get(0);
+    Vertice atual = this.vertices.get(identificador -1);
   
     fila.add(atual);
 
