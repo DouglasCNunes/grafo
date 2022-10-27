@@ -63,7 +63,7 @@ public class Grafo<T> {
     ArrayList<Vertice> marcados = new ArrayList<Vertice>();
     ArrayList<Vertice> fila = new ArrayList<Vertice>();
 
-    //Arbitrariamente é pego um vertice para iniciar a busca
+    //Recuperando o vertice da lista
     Vertice atual = this.vertices.get(identificador -1);
   
     fila.add(atual);
