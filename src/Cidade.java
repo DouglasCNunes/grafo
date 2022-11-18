@@ -25,7 +25,7 @@ public class Cidade {
 
     @Override
     public String toString() {
-        return "Código:" + codigo + "Nome:" + nome;
+        return "Código:" + codigo + "  Nome:" + nome;
     }
 
     
