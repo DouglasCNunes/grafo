@@ -150,11 +150,12 @@ public class Grafo<T> {
 
   public void imprimirGrafo() {
     for (Vertice<T> vertice: vertices) {
-      System.out.println("Vértice " + vertice.getValor() + ":");
+      System.out.println("Vértice " + vertice.getValor().toString());
       System.out.println("Arestas:");
       for (Aresta aresta: vertice.getDestinos()) {
         System.out.println(aresta.getDestino().getValor().toString() + " Peso:" + aresta.getPeso());
       }
+      System.out.println("");
     }
   }
 }
