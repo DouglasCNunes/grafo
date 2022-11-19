@@ -2,6 +2,7 @@ package grafo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Grafo<T> {
   private List<Vertice<T>> vertices;
@@ -20,10 +21,15 @@ public class Grafo<T> {
     return novo;
   }
 
+  public Vertice<T> obterVertice(int identificador) {
+    Vertice<T> v = this.vertices.get(identificador -1);
+    return v;
+  }
+
   private Vertice<T> obterVertice(T valor) {
     Vertice<T> v;
     for (int i = 0; i < this.vertices.size(); i++) {
-      v=this.vertices.get(i);
+      v = this.vertices.get(i);
       if(v.getValor().equals(valor))
         return v;
     }
@@ -89,63 +95,70 @@ public class Grafo<T> {
     }
   }
 
-  public void dijkstra(int origem, int destino) {
-    Vertice<T> verticeOrigem = this.vertices.get(origem -1);
-    Vertice<T> verticeDestino = this.vertices.get(destino -1);
 
-
+  public void dijkstra(Vertice<T> verticeOrigem, Vertice<T> verticeDestino) {
     float estimativas[] = new float[this.vertices.size()];
     int precedentes[] = new int [this.vertices.size()];
     int fechados[] = new int [this.vertices.size()]; //0 para abertos e 1 para fechados
 
     //distancia infinita para todos os elemenos: valor máximo para int.
     for (int i = 0; i < estimativas.length; i++) {
-      estimativas[i] =  2147483647;
-      fechados[i] = 0;    
+      estimativas[i] =  2147483000;
+      fechados[i] = 0; //0 para abertos e 1 para fechados  
     }
     //Atribuir para estimativa da origem valor 0 e valor -1 para precedente.
     int indexOrigem = this.vertices.indexOf(verticeOrigem);
     estimativas[indexOrigem] = 0;
     precedentes[indexOrigem] = -1;
     
-
-    int verticesAbertos = this.vertices.size() -1;
+    int verticesAbertos = this.vertices.size();
     //Enquanto Houver vértice aberto:
     while(verticesAbertos > 0) {
       Vertice<T> verticeAtual = null;
-      int estimativaAtual = 2147483647;
+      float estimativaAtual = 2147483647;
       int indexAtual = 0;
       //Pega um vertice aberto com menor estimativa.
       for (int i = 0; i < estimativas.length; i++) {
         if(fechados[i] == 0 && estimativas[i] < estimativaAtual) {
-          fechados[i] = 1;
+          estimativaAtual = estimativas[i];
           verticeAtual = this.vertices.get(i);
           indexAtual = i;
         }
       }
-      //Para dava vizinho do vertice atual:
-      for (int i = 0; i < verticeAtual.getDestinos().size(); i++) {
-        //Pega o index do vertice do vizinho na lista vertices.
-        int indexVizinho = vertices.indexOf(verticeAtual.getDestinos().get(i));
-        float pesoTotal = estimativas[indexAtual] + verticeAtual.getDestinos().get(i).getPeso();
-        //Verificar se a o peso total é menor que a estimativa, se sim, então a estimativa e precedentes são atualizados.
-        if(pesoTotal < estimativas[indexVizinho]) {
-          estimativas[indexVizinho] = pesoTotal;
-          precedentes[i] = indexAtual;
+      fechados[indexAtual] = 1;
+      //Para cada vizinho do vertice atual:
+        if(verticeAtual != null) {
+        for (int i = 0; i < verticeAtual.getDestinos().size(); i++) {
+          //Pega o index do vertice do vizinho na lista vertices.
+          int indexVizinho = vertices.indexOf(verticeAtual.getDestinos().get(i).getDestino());
+          float pesoTotal = estimativas[indexAtual] + verticeAtual.getDestinos().get(i).getPeso();
+          //Verificar se a o peso total é menor que a estimativa, se sim, então a estimativa e precedentes são atualizados.
+          if(pesoTotal < estimativas[indexVizinho]) {
+            estimativas[indexVizinho] = pesoTotal;
+            precedentes[indexVizinho] = indexAtual;
+          }
         }
-      }
+    }
+      verticesAbertos--;
     }
     //Imprimir a caminho mínimo da Origem até o destino
     int indexDestino = vertices.indexOf(verticeDestino);
     Vertice<T> cursor = null;
     cursor = vertices.get(precedentes[indexDestino]); //cursor começa com o precedente do destino
-    //Para cada loop, o cursor recua para o seu precedente
+    //Para cada loop, o cursor recua para o seu precedente e imprime o caminho
+    System.out.println("\n----------------------------------");
+    System.out.println("Destino: "+ verticeDestino.getValor().toString());
+    System.out.println();
     while(cursor != verticeOrigem) {
+      System.out.println("Caminho: "+ cursor.getValor().toString());
       int indexCursor = vertices.indexOf(cursor);
       cursor = vertices.get(precedentes[indexCursor]);
-      System.out.println(cursor.toString());
     }
-    System.out.println("Origem: "+verticeOrigem.toString());
+    //Imprime a origem, o comprimento do caminho mínimo
+    System.out.println();
+    System.out.println("Origem: " + verticeOrigem.getValor().toString());
+    System.out.println();
+    System.out.println("Comprimento do caminho mínimo: "+estimativas[indexDestino]);
   }
 
   public void imprimirGrafo() {

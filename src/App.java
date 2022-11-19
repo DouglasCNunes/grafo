@@ -31,8 +31,11 @@ public class App {
                 //Algoritmo de Dijkstra
                     System.out.println("Digite a origem (código da cidade): ");
                     escolha = input.nextInt();
+                    Vertice<Cidade> origem = grafo.obterVertice(escolha);
                     System.out.println("Digite o destino (código da cidade):");
-                    // grafo.dijkstra(null, null);
+                    escolha = input.nextInt();
+                    Vertice<Cidade> destino = grafo.obterVertice(escolha);
+                    grafo.dijkstra(origem, destino);
                     break;
                 case 4:
                 //Caminho mínimo
@@ -44,13 +47,14 @@ public class App {
             }
             menu();
             escolha = input.nextInt();
+            
         }
         input.close();
     }
 
     static void lerArquivo(Grafo<Cidade> grafo) throws Exception {
-        File file = new File("entrada.txt");
-        //File file = new File(System.getProperty("user.dir") + "/entrada.txt");
+        //File file = new File("C:/Users/Douglas/Desktop/Codigos/grafo/src/entrada.txt");
+        File file = new File(System.getProperty("user.dir") + "/entrada.txt");
         Scanner scanner = new Scanner(file);
         String line;
 
