@@ -12,7 +12,7 @@ public class App {
         int escolha;
         menu();
         escolha = input.nextInt();
-        while(escolha != 3) {
+        while(escolha != 7) {
             clearScreen();
             switch(escolha) {
                 //Obter cidades vizinhas de uma cidade escolhida pelo usuário.
@@ -27,6 +27,20 @@ public class App {
                     escolha = input.nextInt();
                     grafo.buscaEmLargura(escolha);
                     break;
+                case 3:
+                //Algoritmo de Dijkstra
+                    System.out.println("Digite a origem (código da cidade): ");
+                    escolha = input.nextInt();
+                    System.out.println("Digite o destino (código da cidade):");
+                    // grafo.dijkstra(null, null);
+                    break;
+                case 4:
+                //Caminho mínimo
+                case 5:
+                //Ford-Fulkerson
+                case 6:
+                //Imprimir grafo
+                    grafo.imprimirGrafo();
             }
             menu();
             escolha = input.nextInt();
@@ -35,8 +49,8 @@ public class App {
     }
 
     static void lerArquivo(Grafo<Cidade> grafo) throws Exception {
-        // File file = new File("C:/Users/Douglas/Desktop/Codigos/grafo/src/entrada.txt");
-        File file = new File(System.getProperty("user.dir") + "/entrada.txt");
+        File file = new File("C:/Users/Douglas/Desktop/Codigos/grafo/src/entrada.txt");
+        //File file = new File(System.getProperty("user.dir") + "/entrada.txt");
         Scanner scanner = new Scanner(file);
         String line;
 
@@ -83,7 +97,11 @@ public class App {
         System.out.println("\n-------------- Menu --------------");
         System.out.println("\n 1 - Obter cidades vizinhas de uma cidade.");
         System.out.println(" 2 - Obter todos os caminhos a partir de uma cidade.");
-        System.out.println(" 3 - Sair.");
+        System.out.println(" 3 - Dijkstra.");
+        System.out.println(" 4 - Caminho mínimo. - TODO");
+        System.out.println(" 5 - Ford-Fulkerson. - TODO");
+        System.out.println(" 6 - Imprimir grafo.");
+        System.out.println(" 7 - Sair.");
         System.out.print("\nEscolha uma das opçoes acima: ");
     }
 
