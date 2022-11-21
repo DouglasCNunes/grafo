@@ -148,6 +148,18 @@ public class Grafo<T> {
     System.out.println("Origem: "+verticeOrigem.toString());
   }
 
+  public void prim(int origem) {
+    Vertice<T> verticeOrigem = this.vertices.get(origem -1);
+    //Copiando vértices antigos e limpando lista de vértices
+    List<Vertice<T>> verticesAntigos = this.vertices;
+    this.vertices = new ArrayList<Vertice<T>>();
+
+    while (novosVertices.size() != this.vertices.size()) {
+      // TODO
+    }
+    
+  }
+
   public void imprimirGrafo() {
     for (Vertice<T> vertice: vertices) {
       System.out.println("Vértice " + vertice.getValor().toString());
