@@ -166,9 +166,16 @@ public class Grafo<T> {
     //Copiando vértices antigos e limpando lista de vértices
     List<Vertice<T>> verticesAntigos = this.vertices;
     this.vertices = new ArrayList<Vertice<T>>();
+    //Adicionando vértice inicial
+    this.vertices.add(verticeOrigem);
 
-    while (novosVertices.size() != this.vertices.size()) {
-      // TODO
+    //Iterando até que todos os vértices antigos estejam no grafo
+    Aresta proximaAresta;
+    while (this.vertices.size() != verticesAntigos.size()) {
+      //Achando o vértice que será adicionado
+      for (Vertice vertice: this.vertices) {
+        //TODO
+      }
     }
     
   }
