@@ -162,27 +162,45 @@ public class Grafo<T> {
   }
 
   public void prim(int origem) {
-    Vertice<T> verticeOrigem = this.vertices.get(origem -1);
+    Vertice<T> verticeInicial = this.vertices.get(origem -1);
+
     //Copiando vértices antigos e limpando lista de vértices
     List<Vertice<T>> verticesAntigos = this.vertices;
     this.vertices = new ArrayList<Vertice<T>>();
+    
     //Adicionando vértice inicial
-    this.vertices.add(verticeOrigem);
+    this.adicionarVertice(verticeInicial.getValor());
+    List<Vertice<T>> verticesAntigosAdicionados = new ArrayList<Vertice<T>>();
+    verticesAntigosAdicionados.add(verticeInicial);
 
     //Iterando até que todos os vértices antigos estejam no grafo
-    Aresta proximaAresta;
+    Vertice verticeOrigem = null;
+    Aresta proximaAresta = null;
     while (this.vertices.size() != verticesAntigos.size()) {
-      //Achando o vértice que será adicionado
-      for (Vertice vertice: this.vertices) {
-        //TODO
-      }
-    }
     
+      //Achando o vértice e aresta que serão adicionados
+      for (Vertice verticeAdicionado: verticesAntigosAdicionados) {
+        for (Aresta aresta: verticeAdicionado.getDestinos()) {
+          if ((proximaAresta == null || aresta.getPeso() < proximaAresta.getPeso()) && !verticesAntigosAdicionados.contains(aresta.getDestino())) {
+            verticeOrigem = verticeAdicionado;
+            proximaAresta = aresta;
+          }
+        }
+    
+      }
+    
+      //Adicionando aresta
+      this.adicionarAresta(verticeOrigem.getValor(), proximaAresta.getDestino().getValor(), proximaAresta.getPeso());
+    
+      //Adicionando vertice antigo na lista para busca de novas arestas
+      verticesAntigosAdicionados.add(verticeOrigem);
+    }
   }
 
   public void imprimirGrafo() {
     for (Vertice<T> vertice: vertices) {
-      System.out.println("Vértice " + vertice.getValor().toString());
+      System.out.println("Vértice:");
+      System.out.println(vertice.getValor().toString());
       System.out.println("Arestas:");
       for (Aresta aresta: vertice.getDestinos()) {
         System.out.println(aresta.getDestino().getValor().toString() + " Peso:" + aresta.getPeso());
