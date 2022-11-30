@@ -174,12 +174,12 @@ public class Grafo<T> {
     verticesAntigosAdicionados.add(verticeInicial);
 
     //Iterando até que todos os vértices antigos estejam no grafo
-    Vertice verticeOrigem = null;
+    Vertice<T> verticeOrigem = null;
     Aresta proximaAresta = null;
     while (this.vertices.size() != verticesAntigos.size()) {
     
       //Achando o vértice e aresta que serão adicionados
-      for (Vertice verticeAdicionado: verticesAntigosAdicionados) {
+      for (Vertice<T> verticeAdicionado: verticesAntigosAdicionados) {
         for (Aresta aresta: verticeAdicionado.getDestinos()) {
           if ((proximaAresta == null || aresta.getPeso() < proximaAresta.getPeso()) && !verticesAntigosAdicionados.contains(aresta.getDestino())) {
             verticeOrigem = verticeAdicionado;
@@ -189,7 +189,8 @@ public class Grafo<T> {
       }
     
       //Adicionando aresta
-      this.adicionarAresta(verticeOrigem.getValor(), proximaAresta.getDestino().getValor(), proximaAresta.getPeso());
+      Vertice<T> valor = proximaAresta.getDestino();
+      this.adicionarAresta(verticeOrigem.getValor(), valor.getValor(), proximaAresta.getPeso());
     
       //Adicionando vertice antigo na lista para busca de novas arestas
       verticesAntigosAdicionados.add(verticeOrigem);
