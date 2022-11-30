@@ -58,7 +58,7 @@ public class App {
 
     static void lerArquivo(Grafo<Cidade> grafo) throws Exception {
         //File file = new File("C:/Users/Douglas/Desktop/Codigos/grafo/src/entrada.txt");
-        File file = new File(System.getProperty("user.dir") + "/entrada.txt");
+        File file = new File(System.getProperty("user.dir") + "/entradaSlideCaminhoMinimo.txt");
         Scanner scanner = new Scanner(file);
         String line;
 

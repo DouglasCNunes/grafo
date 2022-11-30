@@ -161,8 +161,8 @@ public class Grafo<T> {
     System.out.println("Comprimento do caminho mínimo: "+estimativas[indexDestino]);
   }
 
-  public void prim(int origem) {
-    Vertice<T> verticeInicial = this.vertices.get(origem -1);
+  public void prim(int inicial) {
+    Vertice<T> verticeInicial = this.vertices.get(inicial -1);
 
     //Copiando vértices antigos e limpando lista de vértices
     List<Vertice<T>> verticesAntigos = this.vertices;
@@ -177,7 +177,6 @@ public class Grafo<T> {
     Vertice<T> verticeOrigem = null;
     Aresta proximaAresta = null;
     while (this.vertices.size() != verticesAntigos.size()) {
-    
       //Achando o vértice e aresta que serão adicionados
       for (Vertice<T> verticeAdicionado: verticesAntigosAdicionados) {
         for (Aresta aresta: verticeAdicionado.getDestinos()) {
@@ -189,11 +188,12 @@ public class Grafo<T> {
       }
     
       //Adicionando aresta
-      Vertice<T> valor = proximaAresta.getDestino();
-      this.adicionarAresta(verticeOrigem.getValor(), valor.getValor(), proximaAresta.getPeso());
+      Vertice<T> destinoAresta = proximaAresta.getDestino();
+      this.adicionarAresta(verticeOrigem.getValor(), destinoAresta.getValor(), proximaAresta.getPeso());
     
       //Adicionando vertice antigo na lista para busca de novas arestas
-      verticesAntigosAdicionados.add(verticeOrigem);
+      verticesAntigosAdicionados.add(destinoAresta);
+      proximaAresta = null;
     }
   }
 
