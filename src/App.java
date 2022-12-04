@@ -106,7 +106,7 @@ public class App {
         System.out.println("\n 1 - Obter cidades vizinhas de uma cidade.");
         System.out.println(" 2 - Obter todos os caminhos a partir de uma cidade.");
         System.out.println(" 3 - Dijkstra.");
-        System.out.println(" 4 - Árvore geradora mínima. - TODO");
+        System.out.println(" 4 - Árvore geradora mínima.");
         System.out.println(" 5 - Ford-Fulkerson. - TODO");
         System.out.println(" 6 - Imprimir grafo.");
         System.out.println(" 7 - Sair.");
